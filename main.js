@@ -16,6 +16,8 @@ let addButton = document.querySelector(".add-button");
 let tabs = document.querySelectorAll(".task-tabs div");
 let mode = "all"
 let filterList = [];
+// let filterList = JSON.parse(localStorage.getItem("filterList"));
+// filterList = filterList ?? [];
 
 addButton.addEventListener("click", addTask);
 taskInput.addEventListener("keyup", function(event) {
@@ -49,6 +51,7 @@ function render () {
     let list = [];
     if (mode === "all") {
         list = taskList
+        localStorage.setItem("taskList", JSON.stringify(list));
     }else if(mode ==="not-done" || mode ==="done") {
         list = filterList
     };
@@ -111,7 +114,7 @@ function deleteTask (id) {
             taskList.splice(i,1)
         }
     }
-    
+    localStorage.setItem("taskList", JSON.stringify(taskList));
     render();
 }
 
@@ -141,7 +144,7 @@ function filter(event) {
         };
         
     }
-
+    
     render();
 
 };
